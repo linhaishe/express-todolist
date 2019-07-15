@@ -1,5 +1,5 @@
 $(document).ready(function() {
-
+    //part 4
     $('form').on('submit', function(event) {
         event.preventDefault();
         var item = $('form input');
