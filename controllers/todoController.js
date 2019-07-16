@@ -73,5 +73,4 @@ module.exports = function(app) {
   });
 }
 
-//线上数据库服务mlab,注册后创建数据(被收购了，关闭注册了TvT)
 //mongodb存储的是json
