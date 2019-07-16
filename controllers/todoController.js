@@ -4,7 +4,26 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://hfpp2012:hfpp2012@ds151068.mlab.com:51068/todos');
+// mongoose.connect('mongodb://hfpp2012:hfpp2012@ds151068.mlab.com:51068/todos',{ useNewUrlParser: true });
+// const MongoClient = require('mongodb').MongoClient;
+// const uri = "mongodb+srv://user1-heather:lcx@!9670itsmyfreecluster-5fqa0.mongodb.net/test?retryWrites=true&w=majority";
+// const client = new MongoClient(uri, { useNewUrlParser: true });
+// client.connect(err => {
+//   const collection = client.db("todolist").collection("todo");
+//   // perform actions on the collection object
+//   client.close();
+// });
+
+// mongoose.connect(uri);
+
+mongoose.connect("mongodb+srv://user1-heather:heather01@itsmyfreecluster-5fqa0.mongodb.net/test?retryWrites=true&w=majority",{ useNewUrlParser: true })
+    .then(()=>{
+        console.log("Connected to mongo database");
+    })
+    .catch((err)=>{
+        console.log("Error connecting mongo database",err);
+    });
+
 
 var todoSchema = new mongoose.Schema({
   //数据的模版类型
