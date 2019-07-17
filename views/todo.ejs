@@ -1,25 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Todo list</title>
   <!--引入jqurey-->
   <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-    <!--引入静态文件-->
+  <!--引入静态文件-->
   <link rel="stylesheet" href="/assets/styles.css" type="text/css">
   <script src="/assets/todo-list.js"></script>
 </head>
+
 <body>
   <div id="todo-table">
     <form>
       <input type="text" name='item' placeholder="Add new item..." required />
       <button type="submit">Add Item</button>
     </form>
+
+    <h2>Active Task</h2>
+
     <ul>
       <% todos.forEach(function(todo) { %>
-        <li><%= todo.item %></li>
+      <li><%= todo.item %></li>
       <% }) %>
     </ul>
+
+    <h2>Completed Task</h2>
+
+      <ul>
+        <% todos.forEach(function(todo) { %>
+        <li><%= todo.item %></li>
+        <% }) %>
+      </ul>
   </div>
 </body>
+
 </html>
