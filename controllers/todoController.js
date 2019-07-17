@@ -50,18 +50,29 @@ module.exports = function (app) {
     });
   });
 
-  //删除时需要用的路由
-  app.delete('/todo/:item', function (req, res) {
-    // data = data.filter(function(todo) {
-    //   return todo.item.replace(/ /g, "-") !== req.params.item;
-    // });
-    //根据唯一id进行删除会更好
-    //remove() has been Deprecated
-    Todo.find({ item: req.params.item.replace(/-/g, " ") }).remove(function (err, data) {
+  app.post('/todo/:id/completed', urlencodedParser, function (req, res) {
+    var itemOne = Todo(req.body).save(function (err, data) {
       if (err) throw err;
       res.json(data);
     });
+    res.redirect("/todo");
   });
+
+
+
+
+  // //删除时需要用的路由
+  // app.delete('/todo/:item', function (req, res) {
+  //   // data = data.filter(function(todo) {
+  //   //   return todo.item.replace(/ /g, "-") !== req.params.item;
+  //   // });
+  //   //根据唯一id进行删除会更好
+  //   //remove() has been Deprecated
+  //   Todo.find({ item: req.params.item.replace(/-/g, " ") }).remove(function (err, data) {
+  //     if (err) throw err;
+  //     res.json(data);
+  //   });
+  // });
 }
 
 //mongodb存储的是json

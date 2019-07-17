@@ -31,7 +31,7 @@ input[type="text"] {
     color: #989898;
 }
 
-button {
+.btn1 {
     padding: 20px;
     width: 30%;
     float: left;
@@ -41,6 +41,10 @@ button {
     color: #fff;
     cursor: pointer;
     font-size: 20px;
+}
+
+.btn2{
+    display: inline;
 }
 
 ul,h2 {
