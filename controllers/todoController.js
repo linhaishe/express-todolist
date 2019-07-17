@@ -3,9 +3,8 @@ var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 var mongoose = require('mongoose');
-
+//connect mongodb atlas
 // mongoose.connect('mongodb://hfpp2012:hfpp2012@ds151068.mlab.com:51068/todos',{ useNewUrlParser: true });
-// const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://user1-heather:heather01@itsmyfreecluster-5fqa0.mongodb.net/todolist";
 const client = mongoose.connect(uri, { useNewUrlParser: true })
 .then(() => {
@@ -14,23 +13,6 @@ const client = mongoose.connect(uri, { useNewUrlParser: true })
 .catch((err) => {
   console.log("Error connecting mongo database", err);
 });
-
-// client.connect(err => {
-//   const collection = client.db("todolist").collection("todos");
-//   // perform actions on the collection object
-//   client.close();
-// });
-
-
-// mongoose.connect("mongodb+srv://user1-heather:heather01@itsmyfreecluster-5fqa0.mongodb.net/test?retryWrites=true&w=majority", { useNewUrlParser: true })
-//   .then(() => {
-//     console.log("Connected to mongo database");
-//   })
-//   .catch((err) => {
-//     console.log("Error connecting mongo database", err);
-//   });
-
-
 
 
 var todoSchema = new mongoose.Schema({
@@ -74,6 +56,7 @@ module.exports = function (app) {
     //   return todo.item.replace(/ /g, "-") !== req.params.item;
     // });
     //根据唯一id进行删除会更好
+    //remove() has been Deprecated
     Todo.find({ item: req.params.item.replace(/-/g, " ") }).remove(function (err, data) {
       if (err) throw err;
       res.json(data);
