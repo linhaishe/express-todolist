@@ -49,17 +49,28 @@ module.exports = function (app) {
       res.json(data);
     });
   });
-
-  app.post('/todo/:id/completed', urlencodedParser, function (req, res) {
-    var itemOne = Todo(req.body).save(function (err, data) {
-      if (err) throw err;
-      res.json(data);
+  
+  //完成任务时候接收的路由
+  app.post('/todo/:id/completed', urlencodedParser, function (req, res){
+    let todoId=req.params.id;
+    Todo.findById(todoId)
+    .exec()
+    .then(function(result){
+      result.done = !result.done;
+      return result.save();
+    })
+    .then(function(result){
+      res.redirect('/todo');
     });
-    res.redirect("/todo");
   });
 
-
-
+  // app.post('/todo/:id/completed', urlencodedParser, function (req, res) {
+  //   var itemOne = Todo(req.body).save(function (err, data) {
+  //     if (err) throw err;
+  //     res.json(data);
+  //   });
+  //   res.redirect("/todo");
+  // });
 
   // //删除时需要用的路由
   // app.delete('/todo/:item', function (req, res) {
