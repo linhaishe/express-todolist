@@ -17,13 +17,28 @@
       <input type="text" name='item' placeholder="Add new item..." required />
       <button class="btn1" type="submit">Add Item</button>
     </form>
+    <h2>Active Task</h2>
+    <ul>
+      <% todos.forEach(function(todo) { %>
+      <li><%= todo.item %></li>
+      <% }) %>
+    </ul>
 
+    <h2>Completed Task</h2>
+    <ul>
+      <% todos.forEach(function(todo) { %>
+      <li><%= todo.item %></li>
+      <% }) %>
+    </ul>
+    <h2>ALL TASK</h2>
+
+    <!--
     <h2>Active Task</h2>
 
     <ul>
       <% todos.forEach(function(todo) { %>
       <li>
-        <from method="post" action="/todos">  <%= todo.item %>  <button class="btn2" type="submit">Done</button>
+        <from>  <%= todo.item %>  <button class="btn2" type="submit">Done</button>
         </from>
       </li>
       <% }) %>
@@ -33,9 +48,14 @@
 
     <ul>
       <% todos.forEach(function(todo) { %>
-      <li><%= todo.item %></li>
+      <li>
+        <from>  <%= todo.item %>  <button class="btn2" type="submit">Whooops!</button>
+        </from>
+      </li>
       <% }) %>
     </ul>
+    -->
+
   </div>
 </body>
 

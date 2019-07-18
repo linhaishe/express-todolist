@@ -7,12 +7,12 @@ var mongoose = require('mongoose');
 // mongoose.connect('mongodb://hfpp2012:hfpp2012@ds151068.mlab.com:51068/todos',{ useNewUrlParser: true });
 const uri = "mongodb+srv://user1-heather:heather01@itsmyfreecluster-5fqa0.mongodb.net/todolist";
 const client = mongoose.connect(uri, { useNewUrlParser: true })
-.then(() => {
-  console.log("Connected to mongo database");
-})
-.catch((err) => {
-  console.log("Error connecting mongo database", err);
-});
+  .then(() => {
+    console.log("Connected to mongo database");
+  })
+  .catch((err) => {
+    console.log("Error connecting mongo database", err);
+  });
 
 
 var todoSchema = new mongoose.Schema({
@@ -32,12 +32,19 @@ var Todo = mongoose.model('Todo', todoSchema);
 
 module.exports = function (app) {
   //请求列表时需要的路由
-  app.get('/todo', function (req, res) {
-    //todo指的是mongogoose.model
-    //{}代表取出所有数据
-    Todo.find({}, function (err, data) {
+  // app.get('/todo', function (req, res) {
+  //   //todo指的是mongogoose.model
+  //   //{}代表取出所有数据
+  //   Todo.find({}, function (err, data) {
+  //     if (err) throw err;
+  //     //渲染数据，将data响应到ejs文件中的todos中,
+  //     res.render('todo', { todos: data, });
+  //   });
+  // });
+
+  app.get('/', function(req, res) {
+    Todo.find({}, function(err, data) {
       if (err) throw err;
-      //渲染数据，将data响应到ejs文件中的todos中
       res.render('todo', { todos: data });
     });
   });
@@ -48,21 +55,17 @@ module.exports = function (app) {
       if (err) throw err;
       res.json(data);
     });
+    res.redirect('/');
   });
-  
-  //完成任务时候接收的路由
-  app.post('/todo/:id/completed', urlencodedParser, function (req, res){
-    let todoId=req.params.id;
-    Todo.findById(todoId)
-    .exec()
-    .then(function(result){
-      result.done = !result.done;
-      return result.save();
-    })
-    .then(function(result){
-      res.redirect('/todo');
-    });
-  });
+
+  // app.post('/completed', urlencodedParser, function (req, res) {
+  //   var itemOne = Todo(req.body.check).save(function (err, data) {
+  //     if (err) throw err;
+  //     res.json(data);
+  //   });
+  //   res.redirect('/');
+  // });
+
 
   // app.post('/todo/:id/completed', urlencodedParser, function (req, res) {
   //   var itemOne = Todo(req.body).save(function (err, data) {
@@ -72,18 +75,18 @@ module.exports = function (app) {
   //   res.redirect("/todo");
   // });
 
-  // //删除时需要用的路由
-  // app.delete('/todo/:item', function (req, res) {
-  //   // data = data.filter(function(todo) {
-  //   //   return todo.item.replace(/ /g, "-") !== req.params.item;
-  //   // });
-  //   //根据唯一id进行删除会更好
-  //   //remove() has been Deprecated
-  //   Todo.find({ item: req.params.item.replace(/-/g, " ") }).remove(function (err, data) {
-  //     if (err) throw err;
-  //     res.json(data);
-  //   });
-  // });
+  //删除时需要用的路由
+  app.delete('/todo/:item', function (req, res) {
+    // data = data.filter(function(todo) {
+    //   return todo.item.replace(/ /g, "-") !== req.params.item;
+    // });
+    //根据唯一id进行删除会更好
+    //remove() has been Deprecated
+    Todo.find({ item: req.params.item.replace(/-/g, " ") }).remove(function (err, data) {
+      if (err) throw err;
+      res.json(data);
+    });
+  });
 }
 
 //mongodb存储的是json
